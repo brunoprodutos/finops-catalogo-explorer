@@ -11,19 +11,19 @@ interface FeatureRowProps {
 }
 
 const FeatureRow: React.FC<FeatureRowProps> = ({ feature, description, essential, pro, ultimate }) => {
-  const renderValue = (value: boolean | string) => {
+  const renderValue = (value: boolean | string, isUltimate = false) => {
     if (typeof value === 'string') {
-      return <span className="text-yellow-600 font-bold text-sm">{value}</span>;
+      return <span className={`font-bold text-sm ${isUltimate ? 'text-gray-400' : 'text-yellow-600'}`}>{value}</span>;
     }
     return value ? (
-      <span className="text-green-700 text-xl font-bold">✓</span>
+      <span className={`text-xl font-bold ${isUltimate ? 'text-gray-400' : 'text-green-700'}`}>✓</span>
     ) : (
       <span className="text-red-500 text-xl font-bold">✗</span>
     );
   };
 
   return (
-    <tr className="border-b border-gray-200 hover:bg-gray-50 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md">
+    <tr className="border-b border-gray-200 hover:bg-gray-50 transition-all duration-300">
       <td className="p-4 font-semibold text-gray-800 border-r border-gray-200 bg-white relative group">
         {feature}
         <span className="inline-block w-4 h-4 bg-gray-500 text-white rounded-full text-center leading-4 text-xs font-bold ml-2 cursor-help transition-all duration-300 hover:bg-green-700 hover:scale-110">
@@ -36,7 +36,7 @@ const FeatureRow: React.FC<FeatureRowProps> = ({ feature, description, essential
       </td>
       <td className="p-4 text-center font-semibold border-r border-gray-200">{renderValue(essential)}</td>
       <td className="p-4 text-center font-semibold border-r border-gray-200">{renderValue(pro)}</td>
-      <td className="p-4 text-center font-semibold">{renderValue(ultimate)}</td>
+      <td className="p-4 text-center font-semibold opacity-50">{renderValue(ultimate, true)}</td>
     </tr>
   );
 };
@@ -278,9 +278,9 @@ const FinOpsComparison: React.FC = () => {
                 <th className="bg-gray-50 p-5 text-center font-bold text-xl text-green-800 border-b-4 border-green-800 sticky top-0 z-10" style={{width: '20%'}}>
                   FinOps Pro
                 </th>
-                <th className="bg-gray-50 p-5 text-center font-bold text-xl text-yellow-600 border-b-4 border-yellow-500 sticky top-0 z-10 relative" style={{width: '20%'}}>
+                <th className="bg-gray-100 p-5 text-center font-bold text-xl text-gray-400 border-b-4 border-gray-300 sticky top-0 z-10 relative opacity-60" style={{width: '20%'}}>
                   FinOps Ultimate
-                  <span className="inline-block bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold ml-2 animate-pulse">
+                  <span className="inline-block bg-gray-400 text-white px-3 py-1 rounded-full text-sm font-medium ml-2">
                     Em breve
                   </span>
                 </th>
